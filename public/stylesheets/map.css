@@ -15,6 +15,22 @@ a hover {
   color: MediumVioletRed;
 }
 
+.title {
+  position: absolute;
+  font-size: 30px;
+  color: rgba(80,80,90,0.7);
+  bottom: 280px;
+  left: -230px;
+  text-align: left;
+  width: 500px;
+  height: 30px;
+  transform:rotate(-90deg);
+  -ms-transform:rotate(-90deg); /* IE 9 */
+  -moz-transform:rotate(-90deg); /* Firefox */
+  -webkit-transform:rotate(-90deg); /* Safari and Chrome */
+  -o-transform:rotate(-90deg); /* Opera */
+}
+
 .content {
   width: 900px;
   text-align: left;

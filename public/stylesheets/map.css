@@ -1,0 +1,208 @@
+body {
+  background: rgb(29,29,29);
+  color: #888;
+  font: 13px Helvetica, arial, freesans, clean, sans-serif;
+  line-height: 1.4;
+}
+
+a, 
+a visited, 
+a active {
+  color: LightSkyBlue;
+}
+
+a hover {
+  color: MediumVioletRed;
+}
+
+.content {
+  width: 900px;
+  text-align: left;
+}
+
+#loading {
+  top: 50%;
+  position: absolute;
+  left: 390px;
+  text-align: center;
+  background-color: rgba(30,30,30,0.5);
+  color: #fff;
+  padding: 10px;
+  border-radius: 3px;
+}
+
+#loading img {
+  width: 20px;
+  height: 20px;
+}
+
+.tabnav {
+  margin: 10px 0;
+  border-bottom: 1px solid #555;
+  height: 35px;
+  text-align: right;
+  position: relative;
+}
+
+.tabnav-tabs li{
+  display: inline-block;
+  padding: 8px 12px;
+  margin-bottom: -1px;
+  border: 1px solid transparent;
+  border-bottom: 0;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.tabnav-tabs .selected {
+  border-color: #555;
+  border-radius: 3px 3px 0 0;
+  background-color: #555;
+  color: #000;
+}
+
+.dates {
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+  text-align: left;
+  height: 20px;
+  display: block;
+  font-size: 15px;
+}
+
+.dtnav {
+  height: 20px;
+  display: inline-block;
+}
+
+.dtnav img {
+  height: 20px;
+  cursor: pointer;
+}
+
+#dt {
+  height: 20px;
+  display: inline-block;
+  position: relative;
+  top: -4px;
+}
+
+.times {
+  text-align: center;
+}
+
+#svgts {
+  padding: 20px;
+  padding-top: 1px;
+}
+
+.stroke {
+  fill: none;
+  stroke: #000;
+  stroke-width: 3px;
+}
+
+.fill {
+  fill: #fff;
+}
+
+.graticule {
+  fill: none;
+  stroke: #222;
+  stroke-width: .5px;
+  stroke-opacity: .5;
+}
+
+.land {
+  fill: #777;
+}
+
+.boundary {
+  fill: none;
+  stroke: #fff;
+  stroke-width: .5px;
+}
+
+.area-scraftA {
+  color: crimson;
+  fill: crimson;
+  fill-opacity: 0.7;
+}
+
+.area-scraftB {
+  color: steelblue;
+  fill: steelblue;
+  fill-opacity: 0.7;
+}
+
+.brush-fill {
+  fill: rgba(100,100,100,0.5);
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: #ccc;
+    shape-rendering: crispEdges;
+}
+
+g text {
+    fill: #ccc;
+}
+
+.brush .extent {
+    stroke: #aaa;
+    fill: #ccc;
+    fill-opacity: .2;
+    shape-rendering: crispEdges;
+}
+
+#svgtm {
+    padding-bottom: 20px;
+}
+
+.circles-scraftA {
+  fill: crimson;
+}
+
+.circles-scraftB {
+  fill: steelblue;
+}
+
+.left-content {
+  position: absolute;
+  top: 20px;
+  right: 10px;
+  width: 30%;
+  text-align: left;
+  padding: 10px;
+  background-color: rgba(70,70,80,0.8);
+  height: 90%;
+  overflow-y: scroll;
+  font-size: 14px;
+  border-radius: 3px;
+  border: 1px solid #888;
+}
+
+.left-content-control {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  padding: 5px;
+  font-size: 14px;
+  border-radius: 3px;
+  border: 1px solid #888;
+  background-color: rgba(60,60,70,0.9);
+  cursor: pointer;
+  -moz-user-select: none; 
+  -khtml-user-select: none; 
+  -webkit-user-select: none; 
+  -o-user-select: none;
+}
+
+footer {
+  position: absolute;
+  bottom: 0px;
+  text-align: left;
+}

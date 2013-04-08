@@ -1,0 +1,84 @@
+extends layout
+
+block content
+  | <script src='/javascripts/map.js'>
+  |   window.onload = function() {
+  |     ts_init();
+  |     mp_init();
+  |   }
+  | </script>
+  div.content#content
+    div.tabnav
+        ul.tabnav-tabs
+            li#north.selected North
+            li#south South
+        div.dates
+          span.dtnav#back
+            img(src="/images/Gnome-go-first.svg", title="Go back 4 days")
+          span.dtnav#addback1
+            img(src="/images/Gnome-go-previous.svg", title="Add 1 day (back)")
+          span#dt
+          span.dtnav#addnext1
+            img(src="/images/Gnome-go-next.svg", title="Add 1 day (forward)")
+          span.dtnav#next
+            img(src="/images/Gnome-go-last.svg", title="Go forward 4 days")
+    div.times
+    div.map
+    div#loading
+      image(src="/images/ajax_loader.gif")
+      div Loading, please wait
+  div.left-content
+    | <p><i>I wanted to experiment with d3.js, and this is what happened...</i></p>
+
+    | <p>Where are all these data coming from? And why should we care about it?</p>
+  
+    | <p>These data are from the Van Allen Probes spacecrafts 
+    | (<a href="http://vanallenprobes.jhuapl.edu/" target="_blank">vanallenprobes.jhuapl.edu</a>). The 2 
+    | probes A and B have been launched in August 2012 to study the Earth's radiation belts. A variety of
+    | of scientific questions should be addressed by these spacecrafts. As for most scientific
+    | empirical investigations, answers will rely on measurements from the spacecrafts combined
+    | with a variety of other instruments, both space and ground based. For this reason, it is important
+    | to be able to connect measurements made by the probes (in-situ) with far-away instruments such as
+    | ground-based radars (<a href="http://vt.superdarn.org/" target="_blank">vt.superdarn.org</a>).</p>
+  
+    | <p>The data presented on this page illustrate an important aspect of calculating spacecraft 
+    | positions in order to coordinate with other ground-based instrument. Most ground-based space 
+    | science measurements are actually made remotely (radar, optical) or in-situ (rockets) in the 
+    | Earth's ionosphere (~100-600 km altitude).</p>
+  
+    | <p>Below is a description of how these positions are calculated, and how these data are
+    | processed and maintained.</p>
+
+    | <p>Once a week, a cronjob on my computer runs a Python script: this script accesses 
+    | <a href="http://athena.jhuapl.edu/LT_Position_Calc" target="_blank">athena.jhuapl.edu</a> 
+    | and downloads ephemeris data for the Van Allen Probes in GEO coordinates.</p>
+    
+    | <p>These ephemeris are stored in a MongoDB database.</p>
+    
+    | <p>Then, the ionospheric footpoints are calculated by following magnetic field lines from the 
+    | spacecraft orbit (near the equatorial plane), down to 300 km altitude in each hemisphere. 
+    | Tsyganenko's T96 model is used to perform this calculation 
+    | (<a href="https://github.com/sdelarquier/tsyganenko" target="_blank">
+    | github.com/sdelarquier/tsyganenko</a>).</p>
+    
+    | <p>The data is accessed and displayed using a combination of node.js, express.js, 
+    | mongodb and d3.js (see the code on 
+    | <a href="https://github.com/sdelarquier/rbspd3" target="_blank">github</a>).</p>
+    
+    | <p>Footpoints calculations yield the geographic coordinates of said footpoints as well as the 
+    | spacecrafts L-shell (the magnetic field shell expressed in Earth radii in the plane of 
+    | the Equator).</p>
+    
+    | <p>The L-shell parameter is plotted in the top-panel (time-series). It provides an estimate of 
+    | both the altitude and magnetic latitude of the spacecrafts, a very useful measurement in space
+    | science. It allows to place the measurement in the context of the Sun-Earth system (different L-shells 
+    | are typically characterized by different physical phenomena, specifically, different type
+    | of coupling between the sun and the Earth).</p>
+  div.left-content-control(onclick="toogleVisibility('.left-content')") Toggle panel
+  footer
+    span.author Sebastien de Larquier
+    
+
+
+
+

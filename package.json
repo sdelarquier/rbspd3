@@ -6,10 +6,11 @@
     "start": "node app.js"
   },
   "dependencies": {
-    "node": "0.0.0",
+    "node": "x",
     "npm": "1.2.x",
     "jade": "x",
     "stylus": "x", 
-    "mongodb": "x"
+    "mongodb": "x",
+    "express": "x"
   }
 }

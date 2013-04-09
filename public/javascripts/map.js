@@ -295,7 +295,7 @@ function plotData(datA, datB, hemi) {
           return true;
         }
     });
-
+    $('.data .hover').text("");
     if (remove) {
       circles.selectAll("circle")
         .remove()

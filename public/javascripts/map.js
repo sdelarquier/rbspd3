@@ -233,14 +233,14 @@ function plotData(datA, datB, hemi) {
   brushS = svg.append("svg:g")
       .append("text")
       .attr("class", "area-scraftA")
-      .attr("x", 10)
+      .attr("x", ((width-height > 40) ? (width-height)/2 : 40))
       .attr("y", 20)
       .style("text-anchor", "start")
       .text('probe A');
   brushE = svg.append("svg:g")
       .append("text")
       .attr("class", "area-scraftB")
-      .attr("x", 10)
+      .attr("x", ((width-height > 40) ? (width-height)/2 : 40))
       .attr("y", 40)
       .style("text-anchor", "start")
       .text('probe B');
@@ -260,10 +260,12 @@ function plotData(datA, datB, hemi) {
 
       if (dt > 24) {
           var ppos = new Date(x.invert(d3.mouse(this)[0]));
-          if (ppos >= et) {
-              st = new Date( new Date(et).setHours(et.getHours() - 24) );
-          } else if (ppos <= st) {
-              et = new Date( new Date(st).setHours(st.getHours() + 24) );
+          var uplim = new Date( new Date(st).setHours(st.getHours() + 24) );
+          var downlim = new Date( new Date(et).setHours(et.getHours() - 24) );
+          if (ppos >= uplim) {
+              st = downlim;
+          } else if (ppos <= downlim) {
+              et = uplim;
           }
           brush.extent([st, et]);
       }

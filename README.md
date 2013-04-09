@@ -14,4 +14,6 @@ For a preview of what this app looks like (provided the server is running):
 
 <http://rbspd3.herokuapp.com/>
 
+Note, this works best in Google Chrome.
+
 Enjoy!

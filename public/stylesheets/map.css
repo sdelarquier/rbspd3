@@ -5,6 +5,10 @@ body {
   line-height: 1.4;
 }
 
+h3 {
+  color: #aaa;
+}
+
 a, 
 a visited, 
 a active {
@@ -20,8 +24,9 @@ a hover {
   font-size: 30px;
   color: rgba(80,80,90,0.7);
   bottom: 280px;
-  left: -230px;
+  left: -250px;
   text-align: left;
+  vertical-align: top;
   width: 500px;
   height: 30px;
   transform:rotate(-90deg);
@@ -29,16 +34,21 @@ a hover {
   -moz-transform:rotate(-90deg); /* Firefox */
   -webkit-transform:rotate(-90deg); /* Safari and Chrome */
   -o-transform:rotate(-90deg); /* Opera */
+  -moz-user-select: none; 
+  -khtml-user-select: none; 
+  -webkit-user-select: none; 
+  -o-user-select: none;
 }
 
 .content {
   width: 900px;
   text-align: left;
+  position: relative;
 }
 
 #loading {
   top: 50%;
-  position: absolute;
+  position: fixed;
   left: 390px;
   text-align: center;
   background-color: rgba(30,30,30,0.5);
@@ -58,6 +68,10 @@ a hover {
   height: 35px;
   text-align: right;
   position: relative;
+  -moz-user-select: none; 
+  -khtml-user-select: none; 
+  -webkit-user-select: none; 
+  -o-user-select: none;
 }
 
 .tabnav-tabs li{
@@ -111,6 +125,22 @@ a hover {
 #svgts {
   padding: 20px;
   padding-top: 1px;
+}
+
+.data {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  font-size: 14px;
+  text-align: right;
+  display: none;
+  padding: 5px;
+  border-radius: 3px;
+}
+
+.data .hover {
+  font-size: 16px;
+  color: #aaa;
 }
 
 .stroke {
@@ -184,6 +214,16 @@ g text {
 
 .circles-scraftB {
   fill: steelblue;
+}
+
+circle {
+  cursor: crosshair;
+}
+
+circle.selected {
+  fill: #000;
+  stroke: #444;
+  stroke-width: 2px;
 }
 
 .left-content {

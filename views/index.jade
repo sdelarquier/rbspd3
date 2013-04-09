@@ -25,17 +25,35 @@ block content
             img(src="/images/Gnome-go-last.svg", title="Go forward 4 days")
     div.times
     div.map
+    div.data
+      div.hover 
+      div Hover over a point to see time
     div#loading
       image(src="/images/ajax_loader.gif")
       div Loading, please wait
   div.left-content
     | <p><i>I wanted to experiment with d3.js, and this is what happened...</i></p>
 
-    | <p>Where are all these data coming from? And why should we care about it?</p>
-  
+    | <h3>This is pretty, but what am I looking at?</h3>
+
     | <p>These data are from the Van Allen Probes spacecrafts 
-    | (<a href="http://vanallenprobes.jhuapl.edu/" target="_blank">vanallenprobes.jhuapl.edu</a>). The 2 
-    | probes A and B have been launched in August 2012 to study the Earth's radiation belts. A variety of
+    | (<a href="http://vanallenprobes.jhuapl.edu/" target="_blank">vanallenprobes.jhuapl.edu</a>). </p>
+
+    | <p>The time-series panel shows the L-shell position of the Van Allen Probes (in units of Earths
+    |  radii). The map shows the Satellites foot-points within the selected time range (no more than 
+    |  24 hours at once). Move the selection arrount in the top panel and see the foot-points change.
+    |  Hover over foot-points to see their UT time. And use the arrows in the top-left corner to 
+    |  load data for a different the period.</p>
+    
+    | <p>The L-shell parameter provides an estimate of both the altitude and magnetic latitude of the 
+    | spacecrafts, a very useful measurement in space science. 
+    | It allows to place the measurement in the context of the Sun-Earth system (different L-shells 
+    | are typically characterized by different physical phenomena, specifically, different type
+    | of coupling between the sun and the Earth).</p>
+
+    | <h3>Where are these data coming from?</h3>
+
+    | <p>The 2 probes A and B have been launched in August 2012 to study the Earth's radiation belts. A variety
     | of scientific questions should be addressed by these spacecrafts. As for most scientific
     | empirical investigations, answers will rely on measurements from the spacecrafts combined
     | with a variety of other instruments, both space and ground based. For this reason, it is important
@@ -45,7 +63,8 @@ block content
     | <p>The data presented on this page illustrate an important aspect of calculating spacecraft 
     | positions in order to coordinate with other ground-based instrument. Most ground-based space 
     | science measurements are actually made remotely (radar, optical) or in-situ (rockets) in the 
-    | Earth's ionosphere (~100-600 km altitude).</p>
+    | Earth's ionosphere (~100-600 km altitude). Knowing the ionospheric foot-point of the spacecrafts 
+    | is crucial to correlate observations.</p>
   
     | <p>Below is a description of how these positions are calculated, and how these data are
     | processed and maintained.</p>
@@ -67,14 +86,8 @@ block content
     | <a href="https://github.com/sdelarquier/rbspd3" target="_blank">github</a>).</p>
     
     | <p>Footpoints calculations yield the geographic coordinates of said footpoints as well as the 
-    | spacecrafts L-shell (the magnetic field shell expressed in Earth radii in the plane of 
+    | spacecrafts' L-shell position (the magnetic field shell expressed in Earth radii in the plane of 
     | the Equator).</p>
-    
-    | <p>The L-shell parameter is plotted in the top-panel (time-series). It provides an estimate of 
-    | both the altitude and magnetic latitude of the spacecrafts, a very useful measurement in space
-    | science. It allows to place the measurement in the context of the Sun-Earth system (different L-shells 
-    | are typically characterized by different physical phenomena, specifically, different type
-    | of coupling between the sun and the Earth).</p>
   div.left-content-control(onclick="toogleVisibility('.left-content')") Toggle panel
   footer
     span.author Sebastien de Larquier

@@ -10,6 +10,7 @@ window.onload = function () {
 
 function loadData(dm10, dp10, hemi_choice) {
       
+  $('.data').fadeOut('slow');
   $('#loading').fadeIn('fast');
 
   d3.xhr("/dbq?sdt="+dm10+"&edt="+dp10
@@ -46,6 +47,12 @@ function loadData(dm10, dp10, hemi_choice) {
       dp10 = dp10.getFullYear()+' / '+(dp10.getUTCMonth()+1)+' / '+dp10.getUTCDate();
       $('#dt').html(dm10+"  -to-  "+dp10);
 
+      $('.data').fadeIn('fast', function() {
+          $(this).animate({fontSize: "20px"}, 
+          'fast', 'linear', function(){
+            $(this).animate({fontSize: "14px"}, 'fast');
+          })
+      });
   });
 
 }
@@ -299,11 +306,21 @@ function plotData(datA, datB, hemi) {
       .enter().append("svg:circle")
         .attr("cx", function(d, i) { return pos[i][0]; })
         .attr("cy", function(d, i) { return pos[i][1]; })
-        .attr("r", function(d, i) { return 2; });
+        .attr("r", function(d, i) { return 2; })
+        .on("mouseover", function(d, i) { 
+            d3.select(".hover").text(new Date(d.time).toUTCString()); 
+            $('circle').attr('class', '');
+            var sel = $(this);
+            var parent = sel.parent();
+            sel.attr('class', 'selected');
+            sel.detach();
+            parent.append(sel);
+          });
   }
 
 
   function changeHemi(event) {
+      $('.data .hover').text("");
       hemi = $(this).attr("id");
 
       $(".tabnav-tabs .selected").removeClass();
@@ -354,6 +371,7 @@ function plotData(datA, datB, hemi) {
         st = new Date(st.setDate(st.getDate() + shift));
       }
 
+      $('.data .hover').text("");
       loadData(st, et, hemi);
 
   }

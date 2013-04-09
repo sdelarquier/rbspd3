@@ -32,18 +32,23 @@ block content
       image(src="/images/ajax_loader.gif")
       div Loading, please wait
   div.left-content
-    | <p><i>I wanted to experiment with d3.js, and this is what happened...</i></p>
-
     | <h3>This is pretty, but what am I looking at?</h3>
 
     | <p>These data are from the Van Allen Probes spacecrafts 
     | (<a href="http://vanallenprobes.jhuapl.edu/" target="_blank">vanallenprobes.jhuapl.edu</a>). </p>
 
     | <p>The time-series panel shows the L-shell position of the Van Allen Probes (in units of Earths
-    |  radii). The map shows the Satellites foot-points within the selected time range (no more than 
+    |  radii). The map shows the satellites foot-points within the selected time range (no more than 
     |  24 hours at once). Move the selection arrount in the top panel and see the foot-points change.
     |  Hover over foot-points to see their UT time. And use the arrows in the top-left corner to 
     |  load data for a different the period.</p>
+
+    | <p>The 2 probes A and B were launched in August 2012 to study the Earth's radiation belts. 
+    | As for most space science topics, studies will rely on measurements from the 
+    | spacecrafts combined with a variety of other instruments, both space and ground based. 
+    | For this reason, it is important to be able to connect measurements made by the probes (in-situ) 
+    | with far-away instruments such as ground-based radars 
+    | (e.g., <a href="http://vt.superdarn.org/" target="_blank">SuperDARN radars</a>).</p>
     
     | <p>The L-shell parameter provides an estimate of both the altitude and magnetic latitude of the 
     | spacecrafts, a very useful measurement in space science. 
@@ -51,23 +56,15 @@ block content
     | are typically characterized by different physical phenomena, specifically, different type
     | of coupling between the sun and the Earth).</p>
 
-    | <h3>Where are these data coming from?</h3>
+    | <p>The foot point indicates where the probes are located in the frame of the Earth's magnetic field.
+    | Field lines extend into space, and due to their excellent conductivity they act as a mapping
+    | interface between the near-Earth space environement (out to several Earth radii) and the Earth'
+    | upper atmosphere (a.k.a, the ionosphere, above 80 km altitude).</p>
+  
+    | <p>Knowing both L-shell and foot-points allows to relate satellite observations to perturabations of
+    | the ionosphere, and vice-versa.</p>
 
-    | <p>The 2 probes A and B have been launched in August 2012 to study the Earth's radiation belts. A variety
-    | of scientific questions should be addressed by these spacecrafts. As for most scientific
-    | empirical investigations, answers will rely on measurements from the spacecrafts combined
-    | with a variety of other instruments, both space and ground based. For this reason, it is important
-    | to be able to connect measurements made by the probes (in-situ) with far-away instruments such as
-    | ground-based radars (<a href="http://vt.superdarn.org/" target="_blank">vt.superdarn.org</a>).</p>
-  
-    | <p>The data presented on this page illustrate an important aspect of calculating spacecraft 
-    | positions in order to coordinate with other ground-based instrument. Most ground-based space 
-    | science measurements are actually made remotely (radar, optical) or in-situ (rockets) in the 
-    | Earth's ionosphere (~100-600 km altitude). Knowing the ionospheric foot-point of the spacecrafts 
-    | is crucial to correlate observations.</p>
-  
-    | <p>Below is a description of how these positions are calculated, and how these data are
-    | processed and maintained.</p>
+    | <h3>Where are these data coming from?</h3>
 
     | <p>Once a week, a cronjob on my computer runs a Python script: this script accesses 
     | <a href="http://athena.jhuapl.edu/LT_Position_Calc" target="_blank">athena.jhuapl.edu</a> 
@@ -78,16 +75,14 @@ block content
     | <p>Then, the ionospheric footpoints are calculated by following magnetic field lines from the 
     | spacecraft orbit (near the equatorial plane), down to 300 km altitude in each hemisphere. 
     | Tsyganenko's T96 model is used to perform this calculation 
-    | (<a href="https://github.com/sdelarquier/tsyganenko" target="_blank">
-    | github.com/sdelarquier/tsyganenko</a>).</p>
+    | (<a href="https://github.com/sdelarquier/tsyganenko" target="_blank">code here</a>).</p>
     
     | <p>The data is accessed and displayed using a combination of node.js, express.js, 
-    | mongodb and d3.js (see the code on 
-    | <a href="https://github.com/sdelarquier/rbspd3" target="_blank">github</a>).</p>
-    
-    | <p>Footpoints calculations yield the geographic coordinates of said footpoints as well as the 
-    | spacecrafts' L-shell position (the magnetic field shell expressed in Earth radii in the plane of 
-    | the Equator).</p>
+    | mongodb and d3.js.</p>
+
+    | <p>Check out the code on Github: 
+    | <a href="https://github.com/sdelarquier/rbspd3" target="_blank">sdelarquier/rbspd3</a></p>
+    | <p>This app works best in Google Chrome.</p>
   div.left-content-control(onclick="toogleVisibility('.left-content')") Toggle panel
   footer
     span.author Sebastien de Larquier

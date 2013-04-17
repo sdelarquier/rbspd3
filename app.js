@@ -31,6 +31,10 @@ if ('development' == app.get('env')) {
 app.get('/', routes.index);
 app.get('/dbq', dbq.getdata);
 
+app.get('/googlea11c4ab11e81c214', function(req, res){
+    res.render('googlea11c4ab11e81c214');
+});
+
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });

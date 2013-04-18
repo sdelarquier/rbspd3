@@ -43,6 +43,7 @@ a hover {
 
 .content {
   width: 900px;
+  height: 800px;
   text-align: left;
   position: relative;
 }

@@ -3,6 +3,7 @@ body {
   color: #888;
   font: 13px Helvetica, arial, freesans, clean, sans-serif;
   line-height: 1.4;
+  min-width: 900px;
 }
 
 h3 {
@@ -227,13 +228,15 @@ circle.selected {
 }
 
 .left-content {
+  display: none;
   position: absolute;
-  top: 20px;
-  right: 10px;
-  width: 30%;
+  top: 5%;
+  right: 5%;
+  bottom: 5%;
+  left: 5%;
   text-align: left;
   padding: 10px;
-  background-color: rgba(70,70,80,0.8);
+  background-color: rgba(60,60,70,0.98);
   height: 90%;
   overflow-y: scroll;
   font-size: 14px;
@@ -251,6 +254,7 @@ circle.selected {
   border: 1px solid #888;
   background-color: rgba(60,60,70,0.9);
   cursor: pointer;
+  z-index: 2;
   -moz-user-select: none; 
   -khtml-user-select: none; 
   -webkit-user-select: none; 
@@ -258,7 +262,7 @@ circle.selected {
 }
 
 footer {
-  position: absolute;
-  bottom: 0px;
+  position: relative;
   text-align: left;
+  top: -10px;
 }

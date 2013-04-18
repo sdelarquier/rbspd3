@@ -12,7 +12,6 @@ function loadData(dm10, dp10, hemi_choice) {
       
   $('.data').fadeOut('slow');
   $('#loading').fadeIn('fast');
-  console.log(hemi_choice);
 
   d3.xhr("/dbq?sdt="+dm10+"&edt="+dp10
       , "application/json"
@@ -59,13 +58,11 @@ function loadData(dm10, dp10, hemi_choice) {
 }
 
 
-var projection, 
-    svg, svgts, 
-    path, brush;
+var projection, svg, svgts, 
+    path, brush, context;
 var circlesA, circlesB;
 function plotData(datA, datB, hemi) {
 
-  console.log('hemi is ', hemi);
   if (!hemi) {
     var hemi = $(".tabnav-tabs .selected").attr("id");
   } else {
@@ -118,7 +115,7 @@ function plotData(datA, datB, hemi) {
       .y1(function(d) { return y(d.L); });
 
   var parseDate = d3.time.format("%b %Y").parse;
-  var context = svgts.append("g");
+  context = svgts.append("g");
 
   x.domain(d3.extent(datA.map(function(d) { return d.time; })));
   y.domain([0, 7]);
@@ -256,6 +253,7 @@ function plotData(datA, datB, hemi) {
 //Callbacks
 //*********************************************
   function brushed() {
+      hemi = $(".tabnav-tabs .selected").attr("id");
       var st = new Date(brush.extent()[0]);
       var et = new Date(brush.extent()[1]);
       var dt = et.getHours() - st.getHours();
@@ -280,6 +278,7 @@ function plotData(datA, datB, hemi) {
 
 
   function brushdown() {
+      hemi = $(".tabnav-tabs .selected").attr("id");
       if (brush.empty()) {
           pos = d3.mouse(this);
           var bstart = new Date(x.invert(pos[0]));

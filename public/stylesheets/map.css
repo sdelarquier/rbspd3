@@ -4,6 +4,7 @@ body {
   font: 13px Helvetica, arial, freesans, clean, sans-serif;
   line-height: 1.4;
   min-width: 900px;
+  min-height: 800px;
 }
 
 h3 {
@@ -45,7 +46,8 @@ a hover {
   width: 900px;
   height: 800px;
   text-align: left;
-  position: relative;
+  position: absolute;
+  left: 5%;
 }
 
 #loading {
@@ -70,6 +72,7 @@ a hover {
   height: 35px;
   text-align: right;
   position: relative;
+  z-index: 1;
   -moz-user-select: none; 
   -khtml-user-select: none; 
   -webkit-user-select: none; 
@@ -231,10 +234,10 @@ circle.selected {
 .left-content {
   display: none;
   position: absolute;
+  max-width: 800px;
   top: 5%;
   right: 5%;
   bottom: 5%;
-  left: 5%;
   text-align: left;
   padding: 10px;
   background-color: rgba(60,60,70,0.98);
@@ -243,19 +246,17 @@ circle.selected {
   font-size: 14px;
   border-radius: 3px;
   border: 1px solid #888;
+  z-index: 10;
 }
 
 .left-content-control {
-  position: absolute;
-  bottom: 0px;
-  right: 0px;
+  margin-right: 5px;
   padding: 5px;
   font-size: 14px;
-  border-radius: 3px;
-  border: 1px solid #888;
-  background-color: rgba(60,60,70,0.9);
+  border-radius: 3px 3px 0 0;
+  background-color: rgba(60,60,70,0.3);
   cursor: pointer;
-  z-index: 2;
+  z-index: -1;
   -moz-user-select: none; 
   -khtml-user-select: none; 
   -webkit-user-select: none; 
@@ -263,7 +264,7 @@ circle.selected {
 }
 
 footer {
-  position: relative;
+  position: absolute;
   text-align: left;
-  top: -10px;
+  bottom: 5px;
 }

@@ -11,8 +11,9 @@ block content
     div.title Van Allen Probes - foot-points
     div.tabnav
         ul.tabnav-tabs
-            li#north.selected North
-            li#south South
+            li.left-content-control(onclick="toogleVisibility('.left-content')") What is this?
+            li.hemi#north.selected North
+            li.hemi#south South
         div.dates
           span.dtnav#back
             img(src="/images/Gnome-go-first.svg", title="Go back 4 days")
@@ -31,7 +32,9 @@ block content
     div#loading
       image(src="/images/ajax_loader.gif")
       div Loading, please wait
-  div.left-content
+    footer
+      span.author Sebastien de Larquier
+  div.left-content(onclick="toogleVisibility('.left-content')")
     | <h3>This is pretty, but what am I looking at?</h3>
 
     | <p>These data are from the Van Allen Probes spacecrafts 
@@ -83,9 +86,8 @@ block content
     | <p>Check out the code on Github: 
     | <a href="https://github.com/sdelarquier/rbspd3" target="_blank">sdelarquier/rbspd3</a></p>
     | <p>This app works best in Google Chrome.</p>
-  div.left-content-control(onclick="toogleVisibility('.left-content')") Toggle Explanation
-  footer
-    span.author Sebastien de Larquier
+    | <div class="g-plusone" data-size="medium" data-annotation="inline" data-width="120"></div>
+    | <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://rbspd3.herokuapp.com/" data-via="S3bDL">Tweet</a>
   | <script>
   |   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   |   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -95,6 +97,15 @@ block content
   |   ga('create', 'UA-40228407-1', 'herokuapp.com');
   |   ga('send', 'pageview');
   | </script>
+  | <!-- Place this tag after the last +1 button tag. -->
+  | <script type="text/javascript">
+  |   (function() {
+  |     var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+  |     po.src = 'https://apis.google.com/js/plusone.js';
+  |     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  |   })();
+  | </script>
+  | <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
     
 
 

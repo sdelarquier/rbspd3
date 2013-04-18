@@ -66,11 +66,11 @@ function plotData(datA, datB, hemi) {
     $("#"+hemi).addClass("selected");
   }
   var width = $(".content").width()*0.95,
-      height = $(window).height()*0.8,
+      height = $(".content").height()*0.8,
       height2 = height*0.1;
 
-  $(".tabnav-tabs li").unbind("click");
-  $(".tabnav-tabs li").on("click", changeHemi);
+  $(".tabnav-tabs .hemi").unbind("click");
+  $(".tabnav-tabs .hemi").on("click", changeHemi);
   $(".dtnav").unbind("click")
   $(".dtnav").on("click", changeData);
 

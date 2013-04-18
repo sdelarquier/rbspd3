@@ -7,11 +7,12 @@ window.onload = function () {
   loadData(dm10, dp10, 'north');
 }
 
-
+var datA, datB;
 function loadData(dm10, dp10, hemi_choice) {
       
   $('.data').fadeOut('slow');
   $('#loading').fadeIn('fast');
+  console.log(hemi_choice);
 
   d3.xhr("/dbq?sdt="+dm10+"&edt="+dp10
       , "application/json"
@@ -58,8 +59,13 @@ function loadData(dm10, dp10, hemi_choice) {
 }
 
 
+var projection, 
+    svg, svgts, 
+    path, brush;
+var circlesA, circlesB;
 function plotData(datA, datB, hemi) {
 
+  console.log('hemi is ', hemi);
   if (!hemi) {
     var hemi = $(".tabnav-tabs .selected").attr("id");
   } else {
@@ -70,9 +76,7 @@ function plotData(datA, datB, hemi) {
       height2 = height*0.1;
 
   $(".tabnav-tabs .hemi").unbind("click");
-  $(".tabnav-tabs .hemi").on("click", changeHemi);
   $(".dtnav").unbind("click")
-  $(".dtnav").on("click", changeData);
 
 //*********************************************
 //Time series
@@ -81,14 +85,14 @@ function plotData(datA, datB, hemi) {
   var x = d3.time.scale().range([0, width]),
       y = d3.scale.linear().range([height2, 0]);
 
-  var brush = d3.svg.brush()
+  brush = d3.svg.brush()
       .x(x)
       .on("brush", brushed)
       .on("brushstart", brushdown)
       .on("brushend", brushdown);
 
   d3.select(".times").selectAll("svg").remove();
-  var svgts = d3.select(".times").append("svg")
+  svgts = d3.select(".times").append("svg")
       .attr("id", "svgts")
       .attr("width", width)
       .attr("height", height2);
@@ -171,20 +175,20 @@ function plotData(datA, datB, hemi) {
       .range([90, -90]);
 
   var rot = ((hemi=='north') ? -90 : 90);
-  var projection = d3.geo.orthographic()
+  projection = d3.geo.orthographic()
       .scale(height*0.5)
       .translate([width / 2, height / 2])
       .clipAngle(90)
       .rotate([0, rot])
       .precision(.1);
       
-  var path = d3.geo.path()
+  path = d3.geo.path()
       .projection(projection);
 
   var graticule = d3.geo.graticule();
 
   d3.select(".map").selectAll("svg").remove();
-  var svg = d3.select(".map").append("svg")
+  svg = d3.select(".map").append("svg")
       .attr("width", width)
       .attr("height", height);
 
@@ -218,13 +222,13 @@ function plotData(datA, datB, hemi) {
         .attr("d", path);
   });
 
-  var circlesA = svg.append("svg:g")
+  circlesA = svg.append("svg:g")
       .attr("id", "circles")
       .attr("class", "circles-scraftA");
 
   updateFps(circlesA, datA, hemi);
 
-  var circlesB = svg.append("svg:g")
+  circlesB = svg.append("svg:g")
       .attr("id", "circles")
       .attr("class", "circles-scraftB");
 
@@ -289,59 +293,6 @@ function plotData(datA, datB, hemi) {
   }
 
 
-  function updateFps(circles, data, remove) {
-    var pos = [];
-    var fps = data.filter(function(d) {
-        if (d.time >= brush.extent()[0] && d.time <= brush.extent()[1]) {
-          pos.push( projection([+d.lonNH, +d.latNH]) );
-          return true;
-        }
-    });
-    $('.data .hover').text("");
-    if (remove) {
-      circles.selectAll("circle")
-        .remove()
-    }
-
-    circles.selectAll("circle")
-        .data(fps)
-      .enter().append("svg:circle")
-        .attr("cx", function(d, i) { return pos[i][0]; })
-        .attr("cy", function(d, i) { return pos[i][1]; })
-        .attr("r", function(d, i) { return 2; })
-        .on("mouseover", function(d, i) { 
-            d3.select(".hover").text(new Date(d.time).toUTCString()); 
-            $('circle').attr('class', '');
-            var sel = $(this);
-            var parent = sel.parent();
-            sel.attr('class', 'selected');
-            sel.detach();
-            parent.append(sel);
-          });
-  }
-
-
-  function changeHemi(event) {
-      $('.data .hover').text("");
-      hemi = $(this).attr("id");
-
-      $(".tabnav-tabs .selected").removeClass();
-      $("#"+hemi).addClass("selected");
-
-      if (hemi == 'north') {
-          projection.rotate([0, -90]);
-          svg.selectAll("path").attr("d", path);
-          updateFps(circlesA, datA, hemi, remove=true);
-          updateFps(circlesB, datB, hemi, remove=true);
-      } else if (hemi == 'south') {
-          projection.rotate([0, 90]);
-          svg.selectAll("path").attr("d", path);
-          updateFps(circlesA, datA, hemi, remove=true);
-          updateFps(circlesB, datB, hemi, remove=true);
-      }
-  }
-
-
   function changeData(event) {
       var shift, add;
       var elem = $(this).attr("id");
@@ -374,9 +325,73 @@ function plotData(datA, datB, hemi) {
       }
 
       $('.data .hover').text("");
+      hemi = $(".tabnav-tabs .selected").attr("id");
       loadData(st, et, hemi);
 
   }
+
+//*********************************************
+//Final bindings
+//*********************************************
+  $(".tabnav-tabs .hemi").on("click", changeHemi);
+  $(".dtnav").on("click", changeData);
+
+}
+
+
+function updateFps(circles, data, hemi, remove) {
+  var pos = [];
+  var fps = data.filter(function(d) {
+      if (d.time >= brush.extent()[0] && d.time <= brush.extent()[1]) {
+        if (hemi=='north')
+          pos.push( projection([+d.lonNH, +d.latNH]) );
+        if (hemi=='south')
+          pos.push( projection([+d.lonSH, +d.latSH]) );
+        return true;
+      }
+  });
+  $('.data .hover').text("");
+  if (remove) {
+    circles.selectAll("circle")
+      .remove()
+  }
+
+  circles.selectAll("circle")
+      .data(fps)
+    .enter().append("svg:circle")
+      .attr("cx", function(d, i) { return pos[i][0]; })
+      .attr("cy", function(d, i) { return pos[i][1]; })
+      .attr("r", function(d, i) { return 2; })
+      .on("mouseover", function(d, i) { 
+          d3.select(".hover").text(new Date(d.time).toUTCString()); 
+          $('circle').attr('class', '');
+          var sel = $(this);
+          var parent = sel.parent();
+          sel.attr('class', 'selected');
+          sel.detach();
+          parent.append(sel);
+        });
+}
+
+
+function changeHemi(event) {
+    $('.data .hover').text("");
+    var hemi = $(this).attr("id");
+
+    $(".tabnav-tabs .selected").removeClass();
+    $("#"+hemi).addClass("selected");
+
+    if (hemi == 'north') {
+        projection.rotate([0, -90]);
+        svg.selectAll("path").attr("d", path);
+        updateFps(circlesA, datA, hemi, remove=true);
+        updateFps(circlesB, datB, hemi, remove=true);
+    } else if (hemi == 'south') {
+        projection.rotate([0, 90]);
+        svg.selectAll("path").attr("d", path);
+        updateFps(circlesA, datA, hemi, remove=true);
+        updateFps(circlesB, datB, hemi, remove=true);
+    }
 }
 
 

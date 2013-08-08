@@ -152,7 +152,7 @@ function plotData(datA, datB, hemi) {
     .text("L-shell");
 
   context.append("g")
-      .attr("class", "x brush")
+      .attr("class", "brush")
       .call(brush)
     .selectAll("rect")
       .attr("y", -6)
@@ -274,6 +274,7 @@ function plotData(datA, datB, hemi) {
       updateFps(circlesA, datA, hemi, remove=true);
       updateFps(circlesB, datB, hemi, remove=true);
       brush(context);
+      $(".brush").css("pointer-events", "all");
   }
 
 
@@ -289,6 +290,7 @@ function plotData(datA, datB, hemi) {
       updateFps(circlesA, datA, hemi, remove=true);
       updateFps(circlesB, datB, hemi, remove=true);
       brush(context); 
+      $(".brush").css("pointer-events", "all");
   }
 
 
